@@ -1,4 +1,4 @@
-package com.example.demochild1.Handler;
+package com.example.democommon.handler;
 
 import com.example.democommon.util.ServerResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;

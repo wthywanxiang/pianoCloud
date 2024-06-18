@@ -17,8 +17,8 @@ public class OpenFeignTestController {
     @Autowired
     HelloService helloService;
     @GetMapping("/hello")
-    public String hello(@RequestBody Map<String,String> params) throws Exception {
+    public String hello() {
         helloService.hello();
-        return "8087端口调用8088端口服务返回的值是："+openFeignTestService.hello(params);
+        return "8087端口调用8088端口服务返回的值是："+openFeignTestService.hello();
     }
 }

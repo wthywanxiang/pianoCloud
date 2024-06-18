@@ -10,7 +10,7 @@ import java.util.Map;
 @RestController
 public class HelloController {
     @RequestMapping("/hello")
-    public String hello(@RequestBody Map<String,String> params){
-        return params.get("number");
+    public String hello(){
+        return "hello:8088";
     }
 }

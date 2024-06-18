@@ -11,5 +11,5 @@ import java.util.Map;
 @FeignClient("demo-child2")
 public interface OpenFeignTestService {
     @GetMapping("/hello")
-    String hello(@RequestBody Map<String,String> params);
+    String hello();
 }
