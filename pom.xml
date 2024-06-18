@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>cloud-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo-common</name>
+    <name>demo-parent</name>
     <description>父工程</description>
    <packaging>pom</packaging>
 
