@@ -1,7 +1,7 @@
 package com.example.demouser.service;
 
-import com.example.demo.app.mapper.RoomMapper;
-import com.example.demo.entity.Room;
+import com.example.demouser.entity.Room;
+import com.example.demouser.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
