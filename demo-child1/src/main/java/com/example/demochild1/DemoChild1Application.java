@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication(scanBasePackages = "com.example")
+@SpringBootApplication(scanBasePackages = {"com.example.demochild1","com.example.democommon"})
 @EnableFeignClients(basePackages = "com.example.demochild1.feign")
 public class DemoChild1Application {
 
