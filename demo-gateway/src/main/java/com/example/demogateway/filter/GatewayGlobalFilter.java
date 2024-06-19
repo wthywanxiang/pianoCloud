@@ -20,12 +20,15 @@ public class GatewayGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         HttpMethod method = exchange.getRequest().getMethod();
-
-        // 处理OPTIONS请求，直接放行
-        if (method == HttpMethod.OPTIONS) {
+        String path = exchange.getRequest().getURI().getPath();
+        // 处理OPTIONS请求与登录请求，直接放行
+        if (method == HttpMethod.OPTIONS
+                || path.startsWith("/api/user/teacherLogin")
+                || path.startsWith("/api/user/studentLogin")
+                || path.startsWith("/api/login")
+        ) {
             return chain.filter(exchange);
         }
-        String path = exchange.getRequest().getURI().getPath();
         if (path.startsWith("/api/user")) {
             String authorizationHeader = exchange.getRequest().getHeaders().getFirst(AUTHORIZATION_HEADER);
             try {

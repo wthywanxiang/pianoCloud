@@ -103,6 +103,6 @@
                     or (endTime >= #{beginTime} and endTime &lt; #{endTime})
                     or (beginTime > #{beginTime} and beginTime &lt;= #{endTime})
                     or (endTime > #{beginTime} and endTime &lt;= #{endTime})
-                )
+                ) for update
     </select>
 </mapper>

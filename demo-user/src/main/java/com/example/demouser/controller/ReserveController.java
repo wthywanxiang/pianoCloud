@@ -49,7 +49,7 @@ public class ReserveController {
         return ServerResponse.createByErrorMessage("哎呀，手速慢了，已经房间已经被抢走了");
     }
 
-    @PostMapping("/api/Reserve/UnfinishedReserve")
+    @PostMapping("/Reserve/UnfinishedReserve")
     public ServerResponse<List<Reserve>> UnfinishedReserve(@RequestHeader("Authorization") String token) {
         DecodedJWT jwt = UserTokenUtil.analysisToken(token);
         Integer sno = jwt.getClaim("number").asInt();
@@ -59,7 +59,7 @@ public class ReserveController {
         return ServerResponse.createBySuccess(reserveService.getUnfinishedReserve(sno));
     }
 
-    @PostMapping("/api/Reserve/CancelReserve")
+    @PostMapping("/Reserve/CancelReserve")
     public ServerResponse<Boolean> CancelReserve(
             @RequestHeader("Authorization") String token,
             @RequestBody Map<String, Object> param
@@ -75,7 +75,7 @@ public class ReserveController {
         return ServerResponse.createByOtherMessage(reserveService.cancelReserve(number, roomId, beginTime, endTime));
     }
 
-    @PostMapping("/api/MP/GetUserDetail")
+    @PostMapping("/MP/GetUserDetail")
     public ServerResponse<UserDetail> GetUserDetail(@RequestHeader("Authorization") String token) {
         DecodedJWT jwt = UserTokenUtil.analysisToken(token);
         if (jwt.getClaim("number").asInt() == null) {
@@ -84,12 +84,12 @@ public class ReserveController {
         return ServerResponse.createBySuccess(reserveService.getUserDetailBySno(jwt.getClaim("number").asInt()));
     }
 
-    @PostMapping("/api/Reserve/TopTen")
+    @PostMapping("/Reserve/TopTen")
     public ServerResponse<List<List<Student>>> TopTen() {
         return ServerResponse.createBySuccess(reserveService.getTopTen());
     }
 
-    @PostMapping("/api/Reserve/HistoryRecord")
+    @PostMapping("/Reserve/HistoryRecord")
     public ServerResponse<List<Reserve>> HistoryRecord(@RequestHeader("Authorization") String token) {
         DecodedJWT jwt = UserTokenUtil.analysisToken(token);
         if (
@@ -100,7 +100,7 @@ public class ReserveController {
         return ServerResponse.createBySuccess(reserveService.getHistoryBySno(jwt.getClaim("number").asInt()));
     }
 
-    @PostMapping("/api/Reserve/ViewStudents")
+    @PostMapping("/Reserve/ViewStudents")
     public ServerResponse<List<List<Student>>> ViewStudents(@RequestHeader("Authorization") String token) {
         DecodedJWT jwt = UserTokenUtil.analysisToken(token);
         if (
@@ -111,7 +111,7 @@ public class ReserveController {
         return ServerResponse.createBySuccess(reserveService.getStudentByTno(jwt.getClaim("number").asInt()));
     }
 
-    @PostMapping("/api/Reserve/signIn")
+    @PostMapping("/Reserve/signIn")
     public ServerResponse signIn(@RequestBody Reserve reserve) {
         return ServerResponse.createByErrorCodeMessage(-1, reserveService.signIn(reserve));
     }

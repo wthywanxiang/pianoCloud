@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ServerResponse<String> exceptionHandler(Exception exception){
-        return ServerResponse.createByError();
+        return ServerResponse.createByErrorMessage(exception.getMessage());
     }
 }

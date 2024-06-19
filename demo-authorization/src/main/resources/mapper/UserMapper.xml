@@ -6,11 +6,11 @@
 <mapper namespace="com.example.demoauthorization.mapper.UserMapper">
 
     <!--    Teacher TeacherLogin(Teacher teacher);-->
-    <select id="TeacherLogin" resultType="Integer">
+    <select id="teacherLogin" resultType="Integer">
         select count(*) from teacher where tno=#{tno} and name=#{name}
     </select>
 <!--     Student StudentLogin(Student student);-->
-    <select id="StudentLogin" resultType="Integer">
+    <select id="studentLogin" resultType="Integer">
         select count(*) from student where sno=#{sno} and name=#{name}
     </select>
 </mapper>

@@ -7,6 +7,8 @@ import com.example.democommon.entity.Reserve;
 import com.example.democommon.entity.Student;
 import com.example.democommon.entity.UserDetail;
 import jakarta.annotation.PostConstruct;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -95,12 +97,21 @@ public class ReserveService {
         reserveMapper.setRealBeginTime(reserve);
         return "签到成功";
     }
+
+    @Autowired
+    RedissonClient redissonClient;
     public Boolean createReserve(Reserve reserve){
         synchronized(ReserveService.class){
-            Integer count=reserveMapper.checkRoomAvailability(reserve);
-            if(count==0){
-                reserveMapper.createReserve(reserve);
-                return true;
+            if(reserveMapper.checkRoomAvailability(reserve) == 0){
+                RLock lock = redissonClient.getLock("createReserve" + reserve.getRoomId());
+                try{
+                    lock.lock();
+                    if(reserveMapper.checkRoomAvailability(reserve) == 0)
+                        reserveMapper.createReserve(reserve);
+                    return true;
+                } finally {
+                    lock.unlock();
+                }
             }
             return false;
         }
