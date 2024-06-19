@@ -26,10 +26,10 @@ public class AdminController {
         return ServerResponse.createBySuccess(token);
     }
     @PostMapping("/admin/info")
-    public ServerResponse<AdminDetail> adminInfo(String token){
+    public ServerResponse<AdminDetail> adminInfo(@RequestParam("token") String token){
         DecodedJWT jwt = AdminTokenUtil.analysisToken(token);
         AdminDetail adminDetail = adminService.adminInfo(jwt.getClaim("userId").asInt());
-        if(adminDetail==null){
+        if(adminDetail == null){
             return ServerResponse.createByErrorMessage("查无此人");
         }
         return ServerResponse.createBySuccess(adminDetail);

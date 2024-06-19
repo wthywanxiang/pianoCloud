@@ -9,11 +9,12 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("demo-authorization")
 public interface AuthorizationFeignService {
     @PostMapping("/api/auth/admin/login")
     ServerResponse<String> login(@RequestBody Admin admin);
     @PostMapping("/api/auth/admin/info")
-    ServerResponse<AdminDetail> adminInfo(String token);
+    ServerResponse<AdminDetail> adminInfo(@RequestParam("token") String token);
 }

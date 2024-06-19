@@ -25,7 +25,7 @@ public class GatewayGlobalFilter implements GlobalFilter, Ordered {
         if (method == HttpMethod.OPTIONS
                 || path.startsWith("/api/user/teacherLogin")
                 || path.startsWith("/api/user/studentLogin")
-                || path.startsWith("/api/login")
+                || path.startsWith("/api/admin/login")
         ) {
             return chain.filter(exchange);
         }
