@@ -1,8 +1,8 @@
 package com.example.demoadmin.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.demoadmin.entity.Admin;
-import com.example.demoadmin.entity.AdminDetail;
+import com.example.democommon.entity.Admin;
+import com.example.democommon.entity.AdminDetail;
 import com.example.demoadmin.service.AdminService;
 import com.example.democommon.util.AdminTokenUtil;
 import com.example.democommon.util.ServerResponse;

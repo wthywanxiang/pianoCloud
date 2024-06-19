@@ -1,8 +1,8 @@
 package com.example.demouser.mapper;
 
-import com.example.demouser.entity.Reserve;
-import com.example.demouser.entity.Student;
-import com.example.demouser.entity.UserDetail;
+import com.example.democommon.entity.Reserve;
+import com.example.democommon.entity.Student;
+import com.example.democommon.entity.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;

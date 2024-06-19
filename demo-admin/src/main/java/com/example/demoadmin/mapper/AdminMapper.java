@@ -1,6 +1,6 @@
 package com.example.demoadmin.mapper;
 
-import com.example.demoadmin.entity.Admin;
+import com.example.democommon.entity.Admin;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

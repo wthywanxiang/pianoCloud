@@ -1,8 +1,8 @@
 package com.example.demouser.controller;
 
 import com.example.democommon.util.ServerResponse;
-import com.example.demouser.entity.Reserve;
-import com.example.demouser.entity.Room;
+import com.example.democommon.entity.Reserve;
+import com.example.democommon.entity.Room;
 import com.example.demouser.service.RoomService;
 import com.example.demouser.util.LocalDateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;

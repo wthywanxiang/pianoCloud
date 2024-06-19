@@ -1,4 +1,4 @@
-package com.example.demoadmin.entity;
+package com.example.democommon.entity;
 
 
 import lombok.AllArgsConstructor;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+//TODO 正常应该搭建文件服务，如minio等，此处为了开发方便，直接使用springboot提供的文件映射
 @RestController
 public class ImagesUploadController  {
     @Autowired

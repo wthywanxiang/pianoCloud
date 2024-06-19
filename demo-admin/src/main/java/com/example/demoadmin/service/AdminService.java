@@ -1,7 +1,7 @@
 package com.example.demoadmin.service;
 
-import com.example.demoadmin.entity.Admin;
-import com.example.demoadmin.entity.AdminDetail;
+import com.example.democommon.entity.Admin;
+import com.example.democommon.entity.AdminDetail;
 import com.example.demoadmin.mapper.AdminMapper;
 import com.example.democommon.util.AdminTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;

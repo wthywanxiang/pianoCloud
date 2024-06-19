@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demouser.mapper.ReserveMapper">
-    <resultMap id="Unfinshed" type="com.example.demouser.entity.Reserve">
+    <resultMap id="Unfinshed" type="com.example.democommon.entity.Reserve">
         <result column="sno" property="sno"></result>
         <result column="beginTime"  property="beginTime"></result>
         <result column="endTime" property="endTime"></result>
@@ -43,7 +43,7 @@
            private String signature;
            0为未开始，1为正常结束，2为迟到，3为违约
    -->
-    <select id="getUserDetailBySno" resultType="com.example.demouser.entity.UserDetail">
+    <select id="getUserDetailBySno" resultType="com.example.democommon.entity.UserDetail">
         select count(*) as reserveCount,
                sum(status=2) as lateOfTime,
                sum(status=3) as violationCount,
@@ -56,7 +56,7 @@
         where status=0 and realBeginTime is null and realEndTime is null and #{localDateTime} >= endTime
     </update>
 
-    <resultMap id="userDetail" type="com.example.demouser.entity.Student">
+    <resultMap id="userDetail" type="com.example.democommon.entity.Student">
         <id column="sno" property="sno"></id>
         <result column="name" property="name"></result>
         <result column="clazz" property="clazz"></result>
@@ -77,7 +77,7 @@
         select * from student where clazz=#{clazz}
     </select>
     <!--    List<Reserve> getHistoryBySno(Integer sno);-->
-    <select id="getHistoryBySno" resultType="com.example.demouser.entity.Reserve">
+    <select id="getHistoryBySno" resultType="com.example.democommon.entity.Reserve">
         select
             r.beginTime,r.endTime,r.status,r.realBeginTime,r.realEndTime,r.roomId,room.name,
             sum(TIMEDIFF(r.realEndTime,r.realBeginTime)) as lengthOfTime

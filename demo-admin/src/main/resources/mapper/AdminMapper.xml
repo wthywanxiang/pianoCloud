@@ -5,11 +5,11 @@
 
 <mapper namespace="com.example.demoadmin.mapper.AdminMapper">
 <!--    Integer adminLogin(String username,String password);-->
-    <select id="adminLogin" resultType="com.example.demoadmin.entity.Admin">
+    <select id="adminLogin" resultType="com.example.democommon.entity.Admin">
         select * from admin_user where username=#{username} and password=#{password}
     </select>
 <!--            Admin adminInfo(Integer userId);-->
-    <select id="adminInfo" resultType="com.example.demo.entity.Admin">
+    <select id="adminInfo" resultType="com.example.democommon.entity.Admin">
         select * from admin_user where id=#{userId}
     </select>
 <!--        Integer getRankByUserId(Integer userId);-->
@@ -17,7 +17,7 @@
         select `rank` from admin_user where id=#{userId}
     </select>
 <!--        List<Admin> checkBackUser();-->
-    <select id="checkBackUser" resultType="com.example.demoadmin.entity.Admin">
+    <select id="checkBackUser" resultType="com.example.democommon.entity.Admin">
         select * from admin_user where `rank`!=1
     </select>
 <!--        void addUser(Admin admin);-->

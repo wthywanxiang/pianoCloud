@@ -1,6 +1,6 @@
 package com.example.demouser.mapper;
 
-import com.example.demouser.entity.Room;
+import com.example.democommon.entity.Room;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;

@@ -10,7 +10,7 @@
     </select>
 
 <!--    List<Room> getAvailableRoomByFloor(LocalDateTime beginTime,LocalDateTime endTime, Integer floor);-->
-    <select id="getAvailableRoomByFloor" resultType="com.example.demouser.entity.Room">
+    <select id="getAvailableRoomByFloor" resultType="com.example.democommon.entity.Room">
         select distinct * from room where  floor=#{floor} and id not in  (
             select distinct roomId from reserve
                     where (beginTime > #{beginTime} and beginTime &lt; #{endTime})

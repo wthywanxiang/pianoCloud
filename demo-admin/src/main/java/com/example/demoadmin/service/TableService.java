@@ -1,9 +1,9 @@
 package com.example.demoadmin.service;
 
-import com.example.demoadmin.entity.Reserve;
-import com.example.demoadmin.entity.Room;
-import com.example.demoadmin.entity.Student;
-import com.example.demoadmin.entity.Teacher;
+import com.example.democommon.entity.Reserve;
+import com.example.democommon.entity.Room;
+import com.example.democommon.entity.Student;
+import com.example.democommon.entity.Teacher;
 import com.example.demoadmin.mapper.TableMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

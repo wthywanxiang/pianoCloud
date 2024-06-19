@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demoadmin.mapper.TableMapper">
-    <resultMap id="StudentDetail" type="com.example.demoadmin.entity.Student">
+    <resultMap id="StudentDetail" type="com.example.democommon.entity.Student">
         <id column="sno" property="sno"></id>
         <result column="name" property="name"></result>
         <result column="clazz" property="clazz"></result>
@@ -12,7 +12,7 @@
         <association property="detail" select="GetUserDetailBySno" column="sno">
         </association>
     </resultMap>
-    <select id="GetUserDetailBySno" resultType="com.example.demoadmin.entity.UserDetail">
+    <select id="GetUserDetailBySno" resultType="com.example.democommon.entity.UserDetail">
         select count(*) as reserveCount,
                sum(status=2) as lateOfTime,
                sum(status=3) as violationCount,
@@ -43,7 +43,7 @@
         delete from student where sno=#{sno}
     </delete>
 <!--        List<Teacher> getTeacherDetailsByFuzzyQuery(Integer number, String clazz, String name);-->
-    <resultMap id="TeacherDetail" type="com.example.demoadmin.entity.Teacher">
+    <resultMap id="TeacherDetail" type="com.example.democommon.entity.Teacher">
         <id column="tno" property="tno"></id>
         <result column="name" property="name"></result>
         <association property="clazz" select="getClazzByTno" column="tno">
@@ -84,7 +84,7 @@
         insert into teacher_to_clazz(tno,clazz) values (#{tno},#{clazz})
     </insert>
 <!--        List<Room> getRoomByFuzzyQuery(Integer floor,Integer name,String piece);-->
-    <select id="getRoomByFuzzyQuery" resultType="com.example.demoadmin.entity.Room">
+    <select id="getRoomByFuzzyQuery" resultType="com.example.democommon.entity.Room">
         select * from room
         <where>
             <if test="floor!=null">
@@ -107,7 +107,7 @@
         insert into room(piece,floor,name) values (#{piece}, #{floor}, #{name})
     </insert>
 <!--    List<Reserve>getReserveByFuzzyQuery(Integer sno,Integer roomId,Integer status,String name);-->
-    <select id="getReserveByFuzzyQuery" resultType="com.example.demoadmin.entity.Reserve">
+    <select id="getReserveByFuzzyQuery" resultType="com.example.democommon.entity.Reserve">
         select distinct s.name,reserve.sno,r.name as roomId,beginTime,endTime,realBeginTime,realEndTime,status
         from  reserve left join student s on reserve.sno = s.sno left join room r on reserve.roomId = r.id
         <where>
