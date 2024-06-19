@@ -6,22 +6,19 @@ import com.example.democommon.entity.Room;
 import com.example.demouser.service.RoomService;
 import com.example.demouser.util.LocalDateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin
 @RestController
+@RequestMapping("/api/user")
 public class RoomController {
 
     @Autowired
     RoomService roomService;
-    @PostMapping("/api/Reserve/AvailableRoom")
+    @PostMapping("Reserve/AvailableRoom")
     public ServerResponse<List<List<Room>>> AvailableRoom(@RequestBody Map<String,Long>Param){
         Reserve reserve = new Reserve();
         Long time = Param.get("beginTime");

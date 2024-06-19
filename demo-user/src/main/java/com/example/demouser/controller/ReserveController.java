@@ -16,15 +16,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin
 @RestController
+@RequestMapping("/api/user")
 public class ReserveController {
     @Autowired
     ReserveMapper reserveMapper;
     @Autowired
     ReserveService reserveService;
 
-    @PostMapping("/api/Reserve/CreateReserve")
+    @PostMapping("/Reserve/CreateReserve")
     public ServerResponse<Boolean> CreateReserve(
             @RequestHeader("Authorization") String token,
             @RequestBody Map<String, Object> params

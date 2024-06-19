@@ -2,6 +2,7 @@ package com.example.demouser.service;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.democommon.util.UserTokenUtil;
+import com.example.demouser.feign.AuthorizationFeignService;
 import com.example.demouser.mapper.UserMapper;
 import com.example.democommon.entity.Student;
 import com.example.democommon.entity.Teacher;
@@ -16,23 +17,25 @@ import java.io.IOException;
 public class ImagesUploadService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    AuthorizationFeignService authorizationFeignService;
     public String uploadImage(HttpServletRequest request, String token, MultipartFile photo){
         DecodedJWT jwt= UserTokenUtil.analysisToken(token);
         Integer number=jwt.getClaim("number").asInt();
-        Integer count;
         Boolean isTeacher=jwt.getClaim("isTeacher").asBoolean();
+        Boolean userExists = false;
         if(isTeacher){
             Teacher teacher=new Teacher();
             teacher.setName(jwt.getClaim("name").asString());
             teacher.setTno(number);
-            count=userMapper.TeacherLogin(teacher);
+            userExists = authorizationFeignService.checkTeacherExist(teacher);
         }else {
             Student student=new Student();
             student.setSno(number);
             student.setName(jwt.getClaim("name").asString());
-            count=userMapper.StudentLogin(student);
+            userExists = authorizationFeignService.checkStudentExist(student);
         }
-        if(count!=1){
+        if(!userExists){
             return "上传失败，不存在该用户";
         }
         String path=request.getServletContext().getRealPath("/upload/images");

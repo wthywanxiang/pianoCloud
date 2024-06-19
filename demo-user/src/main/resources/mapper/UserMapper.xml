@@ -4,15 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demouser.mapper.UserMapper">
-
-    <!--    Teacher TeacherLogin(Teacher teacher);-->
-    <select id="TeacherLogin" resultType="Integer">
-        select count(*) from teacher where tno=#{tno} and name=#{name}
-    </select>
-<!--     Student StudentLogin(Student student);-->
-    <select id="StudentLogin" resultType="Integer">
-        select count(*) from student where sno=#{sno} and name=#{name}
-    </select>
 <!--List<Integer> getAllGrade();-->
     <select id="getAllGrade"  resultType="Integer">
         select distinct grade from student order by grade

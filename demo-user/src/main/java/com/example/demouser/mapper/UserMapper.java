@@ -10,8 +10,6 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    Integer TeacherLogin(Teacher teacher);
-    Integer StudentLogin(Student student);
     List<Integer> getAllGrade();
     List<String>getClazzByTno(Integer tno);
     Boolean studentAvatar(Integer sno);

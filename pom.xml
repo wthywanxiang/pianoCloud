@@ -19,8 +19,6 @@
     <modules>
         <module>demo-common</module>
         <module>demo-gateway</module>
-        <module>demo-child1</module>
-        <module>demo-child2</module>
         <module>demo-admin</module>
         <module>demo-user</module>
         <module>demo-authorization</module>

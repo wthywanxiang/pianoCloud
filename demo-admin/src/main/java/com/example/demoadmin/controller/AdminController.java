@@ -1,6 +1,7 @@
 package com.example.demoadmin.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.demoadmin.feign.AuthorizationFeignService;
 import com.example.democommon.entity.Admin;
 import com.example.democommon.entity.AdminDetail;
 import com.example.demoadmin.service.AdminService;
@@ -12,20 +13,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin
 @RestController
+@RequestMapping("/api/admin")
 public class AdminController {
     @Autowired
     AdminService adminService;
-    @PostMapping("/admin/login")
+
+    @Autowired
+    AuthorizationFeignService authorizationFeignService;
+    @PostMapping("/login")
     public ServerResponse<String> login(@RequestBody Admin admin){
-        String token= adminService.userLogin(admin.getUsername(), admin.getPassword());
-        if(token==null){
-            return ServerResponse.createByErrorMessage("用户不存在");
-        }
-        return ServerResponse.createBySuccess(token);
+        return authorizationFeignService.login(admin);
     }
-    @PostMapping("/api/admin/checkBackUser")
+    @PostMapping("/checkBackUser")
     public ServerResponse<List<Admin>> checkBackUser(@RequestHeader("Authorization") String token){
         DecodedJWT jwt = AdminTokenUtil.analysisToken(token);
         List<Admin>list=adminService.checkBackUser(jwt.getClaim("userId").asInt());
@@ -34,22 +34,17 @@ public class AdminController {
         }
         return ServerResponse.createBySuccess(list);
     }
-    @PostMapping("/api/admin/info")
+    @PostMapping("/info")
     public ServerResponse<AdminDetail> adminInfo(@RequestHeader("Authorization") String token){
-        DecodedJWT jwt = AdminTokenUtil.analysisToken(token);
-        AdminDetail adminDetail = adminService.adminInfo(jwt.getClaim("userId").asInt());
-        if(adminDetail==null){
-            return ServerResponse.createByErrorMessage("查无此人");
-        }
-        return ServerResponse.createBySuccess(adminDetail);
+        return authorizationFeignService.adminInfo(token);
     }
 
-    @PostMapping("/api/admin/addUser")
+    @PostMapping("/addUser")
     public ServerResponse addUser(@RequestBody Admin admin){
         adminService.addUser(admin);
         return ServerResponse.createBySuccess();
     }
-    @PostMapping("/api/admin/deleteUser")
+    @PostMapping("/deleteUser")
     public ServerResponse<Boolean> deleteUser(@RequestHeader("Authorization")String token, @RequestBody Map<String,Integer>params){
         DecodedJWT jwt = AdminTokenUtil.analysisToken(token);
         if(adminService.deleteUser(jwt.getClaim("userId").asInt(),params.get("id"))){

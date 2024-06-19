@@ -15,10 +15,14 @@ spring:
             #跨域检测的有效期单位s
             maxAge: 36000
       routes:
-       - id: hello
-         uri: lb://demo-child1
+       - id: user
+         uri: lb://demo-user
          predicates:
-         - Path=/**
+         - Path=/api/user/**
+       - id: admin
+         uri: lb://demo-admin
+         predicates:
+           - Path=/api/admin/**
       enabled: true
     nacos:
       discovery:

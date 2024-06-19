@@ -13,6 +13,8 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/demo-child1/pom.xml" />
+        <option value="$PROJECT_DIR$/demo-child2/pom.xml" />
         <option value="$PROJECT_DIR$/demo-timingtask/pom.xml" />
       </set>
     </option>

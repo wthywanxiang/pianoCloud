@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demoauthorization.mapper.AdminMapper">
+<!--    Integer adminLogin(String username,String password);-->
+    <select id="adminLogin" resultType="com.example.democommon.entity.Admin">
+        select * from admin_user where username=#{username} and password=#{password}
+    </select>
+<!--            Admin adminInfo(Integer userId);-->
+    <select id="adminInfo" resultType="com.example.democommon.entity.Admin">
+        select * from admin_user where id=#{userId}
+    </select>
+</mapper>
