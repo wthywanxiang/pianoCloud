@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demoadmin.mapper.DashboardMapper">
+<!--    Integer getStudentCount();-->
+    <select id="getStudentCount" resultType="Integer">
+        select count(*) from student
+    </select>
+    <!--    Integer getTeacherCount();-->
+    <select id="getTeacherCount" resultType="Integer">
+        select count(*) from teacher
+    </select>
+    <!--        Integer getReserveCount();-->
+    <select id="getReserveCount" resultType="Integer">
+        select count(*) from reserve
+    </select>
+    <!--       Integer getStartCount();-->
+    <select id="getStartCount" resultType="Integer">
+        select count(*) from reserve where realBeginTime is not null
+    </select>
+    <!--     Integer getEndCount();-->
+    <select id="getEndCount" resultType="Integer">
+        select count(*) from reserve where realEndTime is not null
+    </select>
+</mapper>

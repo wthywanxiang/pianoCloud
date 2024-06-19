@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demoadmin.mapper.AdminMapper">
+<!--    Integer adminLogin(String username,String password);-->
+    <select id="adminLogin" resultType="com.example.demoadmin.entity.Admin">
+        select * from admin_user where username=#{username} and password=#{password}
+    </select>
+<!--            Admin adminInfo(Integer userId);-->
+    <select id="adminInfo" resultType="com.example.demo.entity.Admin">
+        select * from admin_user where id=#{userId}
+    </select>
+<!--        Integer getRankByUserId(Integer userId);-->
+    <select id="getRankByUserId" resultType="Integer">
+        select `rank` from admin_user where id=#{userId}
+    </select>
+<!--        List<Admin> checkBackUser();-->
+    <select id="checkBackUser" resultType="com.example.demoadmin.entity.Admin">
+        select * from admin_user where `rank`!=1
+    </select>
+<!--        void addUser(Admin admin);-->
+    <insert id="addUser">
+        insert into
+            admin_user(username,password,introduction,avatar,`rank`)
+        values(
+               #{username},
+               #{password},
+               #{introduction},
+               'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+               2
+               )
+    </insert>
+<!--       void deleteUser(Integer userId);-->
+    <delete id="deleteUser">
+        delete from admin_user where id=#{userId}
+    </delete>
+
+</mapper>

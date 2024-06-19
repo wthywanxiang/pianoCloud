@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demoadmin.mapper.TableMapper">
+    <resultMap id="StudentDetail" type="com.example.demoadmin.entity.Student">
+        <id column="sno" property="sno"></id>
+        <result column="name" property="name"></result>
+        <result column="clazz" property="clazz"></result>
+        <result column="grade" property="grade"></result>
+        <association property="detail" select="GetUserDetailBySno" column="sno">
+        </association>
+    </resultMap>
+    <select id="GetUserDetailBySno" resultType="com.example.demoadmin.entity.UserDetail">
+        select count(*) as reserveCount,
+               sum(status=2) as lateOfTime,
+               sum(status=3) as violationCount,
+               sum(TIMEDIFF(realendTime,realbeginTime)) as lengthOfTime
+        from reserve where sno=#{sno}
+    </select>
+    <!--List<Student> getStudentDetailsByFuzzyQuery(Integer number,String clazz,String name);-->
+    <select id="getStudentDetailsByFuzzyQuery" resultMap="StudentDetail">
+        select * from student
+        <where>
+            <if test="number!=null">
+                sno=#{number}
+            </if>
+            <if test="clazz!='' and clazz!=null">
+                and clazz like "%"#{clazz}"%"
+            </if>
+            <if test="name!=null and name!=''">
+                and name like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
+<!--        void addStudent(Student student);-->
+    <insert id="addStudent">
+        insert into student(sno,name,clazz,grade) values(#{sno},#{name},#{clazz},#{grade})
+    </insert>
+<!--        void deleteStudent(Integer sno);-->
+    <delete id="deleteStudent">
+        delete from student where sno=#{sno}
+    </delete>
+<!--        List<Teacher> getTeacherDetailsByFuzzyQuery(Integer number, String clazz, String name);-->
+    <resultMap id="TeacherDetail" type="com.example.demoadmin.entity.Teacher">
+        <id column="tno" property="tno"></id>
+        <result column="name" property="name"></result>
+        <association property="clazz" select="getClazzByTno" column="tno">
+        </association>
+    </resultMap>
+    <select id="getTeacherDetailsByFuzzyQuery" resultMap="TeacherDetail">
+        select distinct teacher.tno,teacher.name
+        from teacher_to_clazz left join teacher on teacher.tno=teacher_to_clazz.tno
+        <where>
+            <if test="number!=null">
+                and teacher.tno=#{number}
+            </if>
+            <if test="clazz!=null and clazz!=''">
+                and clazz like "%"#{clazz}"%"
+            </if>
+            <if test="name!=null and name!=''">
+                and name like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
+    <select id="getClazzByTno" resultType="String">
+        select clazz from teacher_to_clazz where tno=#{tno}
+    </select>
+<!--     void deleteTeacher(Integer tno);-->
+    <delete id="deleteTeacher">
+        delete from teacher where tno=#{tno}
+    </delete>
+<!--        void deleteTeacherToClazz(Integer tno);-->
+    <delete id="deleteTeacherToClazz">
+        delete from teacher_to_clazz where tno=#{tno}
+    </delete>
+<!--        void addTeacher(Teacher teacher);-->
+    <insert id="addTeacher">
+        insert into teacher(tno,name) values (#{tno},#{name})
+    </insert>
+<!--        void addTeacherToClazz(Integer tno, String clazz);-->
+    <insert id="addTeacherToClazz">
+        insert into teacher_to_clazz(tno,clazz) values (#{tno},#{clazz})
+    </insert>
+<!--        List<Room> getRoomByFuzzyQuery(Integer floor,Integer name,String piece);-->
+    <select id="getRoomByFuzzyQuery" resultType="com.example.demoadmin.entity.Room">
+        select * from room
+        <where>
+            <if test="floor!=null">
+                and floor=#{floor}
+            </if>
+            <if test="name!=null">
+                and name=#{name}
+            </if>
+            <if test="piece!=null and piece!=''">
+                and piece like "%"#{piece}"%"
+            </if>
+        </where>
+    </select>
+<!--     void deleteRoom(Integer id);-->
+    <delete id="deleteRoom">
+        delete from room where id=#{id}
+    </delete>
+<!--      void addRoom(Room room);-->
+    <insert id="addRoom">
+        insert into room(piece,floor,name) values (#{piece}, #{floor}, #{name})
+    </insert>
+<!--    List<Reserve>getReserveByFuzzyQuery(Integer sno,Integer roomId,Integer status,String name);-->
+    <select id="getReserveByFuzzyQuery" resultType="com.example.demoadmin.entity.Reserve">
+        select distinct s.name,reserve.sno,r.name as roomId,beginTime,endTime,realBeginTime,realEndTime,status
+        from  reserve left join student s on reserve.sno = s.sno left join room r on reserve.roomId = r.id
+        <where>
+            <if test="sno!=null">
+                and s.sno=#{sno}
+            </if>
+            <if test="roomId!=null">
+                and r.name=#{roomId}
+            </if>
+            <if test="status!=null">
+                and status=#{status}
+            </if>
+            <if test="name!=null and name!=''">
+                and s.name like "%"#{name}"%"
+            </if>
+        </where>
+    </select>
+</mapper>
